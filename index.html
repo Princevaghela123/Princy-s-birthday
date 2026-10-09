@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday Princy ❤️ | A Special Birthday Wish</title>
+    <meta name="description" content="A romantic, cute, and emotional birthday surprise website for Princy with memories, songs, photos, and love.">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Dancing+Script:wght@700&family=Outfit:wght@300;400;500;600;700&family=Sacramento&display=swap" rel="stylesheet">
+    <!-- CSS Stylesheet -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <!-- Background Animated Floating Ambient Particles & Glows -->
+    <div class="ambient-bg">
+        <div class="glow-orb orb-1"></div>
+        <div class="glow-orb orb-2"></div>
+        <div class="glow-orb orb-3"></div>
+        <div id="ambient-hearts-container" class="ambient-hearts"></div>
+    </div>
+
+    <!-- Persistent Music Audio Element -->
+    <audio id="bg-music-player" preload="auto" loop></audio>
+
+    <!-- Persistent Floating Music Control (Appears after song selection) -->
+    <div id="persistent-music-widget" class="music-widget hidden" aria-label="Audio player control">
+        <div class="disc-wrapper">
+            <div class="vinyl-disc" id="vinyl-disc">
+                <div class="disc-center">🎵</div>
+            </div>
+        </div>
+        <div class="music-info">
+            <span class="now-playing-label">Now Playing ❤️</span>
+            <span class="song-title-display" id="widget-song-title">Select a Song</span>
+        </div>
+        <div class="music-controls-btns">
+            <button id="widget-play-pause-btn" class="widget-btn" title="Play/Pause" aria-label="Play or Pause Music">
+                <span class="icon">⏸️</span>
+            </button>
+            <button id="widget-mute-btn" class="widget-btn" title="Mute/Unmute" aria-label="Mute or Unmute Music">
+                <span class="icon">🔊</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Navigation Header & Screen Progress Indicator -->
+    <header class="app-header">
+        <div class="progress-bar-container">
+            <div class="progress-dots">
+                <div class="dot active" data-step="1" title="Welcome"></div>
+                <div class="dot" data-step="2" title="Music"></div>
+                <div class="dot" data-step="3" title="Memories"></div>
+                <div class="dot" data-step="4" title="Photobooth"></div>
+                <div class="dot" data-step="5" title="Letter"></div>
+                <div class="dot" data-step="6" title="Surprise"></div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Container holding all 6 Screens -->
+    <main class="main-container">
+
+        <!-- ================= PAGE 1: Welcome Screen ❤️ ================= -->
+        <section id="page-1" class="screen-page active-page">
+            <div class="card-glass welcome-card">
+                <div class="badge-tag">For Someone Very Special 🌸</div>
+                
+                <!-- Couple Cover Photo Frame -->
+                <div class="photo-frame-glow main-cover-frame">
+                    <div class="photo-placeholder-box" id="cover-photo-wrapper">
+                        <img src="assets/photos/WhatsApp Image 2026-10-09 at 19.53.55.jpeg" alt="Princy and Someone Special" id="cover-photo-img" class="user-photo-img" onerror="this.classList.add('hidden'); document.getElementById('cover-photo-fallback').classList.remove('hidden');">
+                        <div id="cover-photo-fallback" class="black-space-placeholder">
+                            <div class="placeholder-icon">📸</div>
+                            <span class="placeholder-text">Add your couple cover photo</span>
+                            <span class="placeholder-subtext">assets/couple-cover.jpg</span>
+                        </div>
+                    </div>
+                    <div class="frame-decor decor-top-right">💖</div>
+                    <div class="frame-decor decor-bottom-left">✨</div>
+                </div>
+
+                <h1 class="recipient-name">Princy <span class="heart-pulse">❤️</span></h1>
+                
+                <!-- Birthday Date Pill -->
+                <div class="birthday-date-pill">
+                    <span class="date-icon">🗓️</span>
+                    <span id="birthday-date-text">10/OCT ✨</span>
+                </div>
+
+                <h2 class="welcome-heading">Someone special was born today... ❤️</h2>
+                <p class="welcome-subtitle">And someone has a little surprise waiting just for you.</p>
+
+                <div class="action-footer">
+                    <button id="btn-page-1-next" class="btn-primary-romantic btn-pulse">
+                        <span class="btn-text">Agar Vadh Hal ❤️</span>
+                        <span class="btn-shine"></span>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= PAGE 2: Choose Your Favourite Song 🎵 ================= -->
+        <section id="page-2" class="screen-page">
+            <div class="card-glass page-card">
+                <button class="nav-back-btn" data-target="1" aria-label="Go back">← Back</button>
+
+                <div class="badge-tag">Music of Love 🎶</div>
+                <h2 class="page-title">First, choose the song that feels like YOU 🎶</h2>
+                <p class="page-subtitle">Pick your favourite, and let the memories begin.</p>
+
+                <!-- Song Options Grid -->
+                <div class="songs-grid" id="songs-container">
+                    <!-- Song cards generated dynamically or rendered here -->
+                </div>
+
+                <div id="audio-error-msg" class="audio-notice hidden">
+                    <span class="notice-icon">⚠️</span>
+                    <span>Browser blocked auto-play. Please click "Play" on a song card to enable sound!</span>
+                </div>
+
+                <div class="action-footer">
+                    <button id="btn-page-2-next" class="btn-primary-romantic disabled" disabled>
+                        <span class="btn-text">Let's Go to Our Memories ❤️</span>
+                        <span class="btn-shine"></span>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= PAGE 3: Flip the Memory Cards 🫶 ================= -->
+        <section id="page-3" class="screen-page">
+            <div class="card-glass page-card">
+                <button class="nav-back-btn" data-target="2" aria-label="Go back">← Back</button>
+
+                <div class="badge-tag">Precious Memories 💗</div>
+                <h2 class="page-title">Little Memories, Big Feelings 💗</h2>
+                <p class="page-subtitle">Touch each card and discover a little piece of the story.</p>
+
+                <!-- 4 3D Flip Memory Cards Grid -->
+                <div class="memory-cards-grid" id="memory-cards-container">
+                    <!-- Memory Card 1 -->
+                    <div class="memory-card" tabindex="0" role="button" aria-expanded="false">
+                        <div class="card-inner">
+                            <div class="card-front">
+                                <div class="card-front-icon">💌</div>
+                                <p class="reveal-hint">Tap to reveal ❤️</p>
+                                <span class="corner-heart">💖</span>
+                            </div>
+                            <div class="card-back">
+                                <div class="back-content">
+                                    <span class="quote-mark">“</span>
+                                    <p class="memory-text" id="memory-text-1">[ADD YOUR FIRST SPECIAL MEMORY]</p>
+                                    <span class="back-heart">❤️</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Memory Card 2 -->
+                    <div class="memory-card" tabindex="0" role="button" aria-expanded="false">
+                        <div class="card-inner">
+                            <div class="card-front">
+                                <div class="card-front-icon">✨</div>
+                                <p class="reveal-hint">Tap to reveal ❤️</p>
+                                <span class="corner-heart">💖</span>
+                            </div>
+                            <div class="card-back">
+                                <div class="back-content">
+                                    <span class="quote-mark">“</span>
+                                    <p class="memory-text" id="memory-text-2">[ADD YOUR SECOND SPECIAL MEMORY]</p>
+                                    <span class="back-heart">❤️</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Memory Card 3 -->
+                    <div class="memory-card" tabindex="0" role="button" aria-expanded="false">
+                        <div class="card-inner">
+                            <div class="card-front">
+                                <div class="card-front-icon">🌻</div>
+                                <p class="reveal-hint">Tap to reveal ❤️</p>
+                                <span class="corner-heart">💖</span>
+                            </div>
+                            <div class="card-back">
+                                <div class="back-content">
+                                    <span class="quote-mark">“</span>
+                                    <p class="memory-text" id="memory-text-3">[ADD YOUR THIRD SPECIAL MEMORY]</p>
+                                    <span class="back-heart">❤️</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Memory Card 4 -->
+                    <div class="memory-card" tabindex="0" role="button" aria-expanded="false">
+                        <div class="card-inner">
+                            <div class="card-front">
+                                <div class="card-front-icon">🎁</div>
+                                <p class="reveal-hint">Tap to reveal ❤️</p>
+                                <span class="corner-heart">💖</span>
+                            </div>
+                            <div class="card-back">
+                                <div class="back-content">
+                                    <span class="quote-mark">“</span>
+                                    <p class="memory-text" id="memory-text-4">[ADD YOUR FOURTH SPECIAL MEMORY]</p>
+                                    <span class="back-heart">❤️</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="action-footer">
+                    <button id="btn-page-3-next" class="btn-primary-romantic">
+                        <span class="btn-text">See Our Cute Photos 📸</span>
+                        <span class="btn-shine"></span>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= PAGE 4: Photo Memories & Photobooth 📸 ================= -->
+        <section id="page-4" class="screen-page">
+            <div class="card-glass page-card">
+                <button class="nav-back-btn" data-target="3" aria-label="Go back">← Back</button>
+
+                <div class="badge-tag">Photobooth Gallery 📸</div>
+                <h2 class="page-title">Some Moments Are Too Cute to Forget 🫀</h2>
+                <p class="page-subtitle">Every picture holds a little piece of happiness.</p>
+
+                <!-- Photobooth Polaroids Carousel Wrapper -->
+                <div class="photobooth-container">
+                    <div class="polaroid-frame" id="polaroid-frame">
+                        <div class="tape-sticker top-left"></div>
+                        <div class="tape-sticker top-right"></div>
+
+                        <!-- Image display container -->
+                        <div class="polaroid-img-wrapper" id="carousel-img-container">
+                            <img id="carousel-img" src="" alt="Photo memory" class="polaroid-img hidden" onerror="this.classList.add('hidden'); document.getElementById('carousel-img-fallback').classList.remove('hidden');">
+                            <div id="carousel-img-fallback" class="black-space-placeholder photobooth-black-space">
+                                <div class="placeholder-icon">📸</div>
+                                <span class="placeholder-text" id="fallback-img-name">assets/photos/photo1.jpg</span>
+                                <span class="placeholder-subtext">Attach your photo here</span>
+                            </div>
+                        </div>
+
+                        <!-- Handwritten caption underneath photo -->
+                        <div class="polaroid-caption-area">
+                            <p id="carousel-caption" class="handwritten-caption">[ADD A CUTE CAPTION]</p>
+                        </div>
+                    </div>
+
+                    <!-- Carousel Controls -->
+                    <div class="carousel-controls-bar">
+                        <button id="carousel-prev-btn" class="carousel-btn" aria-label="Previous photo">❮</button>
+                        
+                        <div class="carousel-meta">
+                            <span id="carousel-counter" class="carousel-counter">01 / 08</span>
+                            <button id="carousel-autoplay-btn" class="slideshow-toggle-btn" title="Toggle Auto Slideshow">▶ Slideshow</button>
+                        </div>
+
+                        <button id="carousel-next-btn" class="carousel-btn" aria-label="Next photo">❯</button>
+                    </div>
+
+                    <!-- Pagination Dots -->
+                    <div class="carousel-dots" id="carousel-dots-container"></div>
+                </div>
+
+                <div class="action-footer">
+                    <button id="btn-page-4-next" class="btn-primary-romantic">
+                        <span class="btn-text">One Last Thing... 💌</span>
+                        <span class="btn-shine"></span>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= PAGE 5: Heartfelt Birthday Letter 💌 ================= -->
+        <section id="page-5" class="screen-page">
+            <div class="card-glass page-card letter-card-page">
+                <button class="nav-back-btn" data-target="4" aria-label="Go back">← Back</button>
+
+                <div class="badge-tag">Love Letter 💌</div>
+                <h2 class="page-title">A Little Letter for My Favourite Girl ❤️</h2>
+
+                <!-- Envelope / Love Letter Container -->
+                <div class="love-letter-paper">
+                    <div class="letter-stamp">🎂❤️</div>
+                    <div class="letter-body-scroll" id="letter-content-area">
+                        <!-- Content populated dynamically or statically from script.js configuration -->
+                    </div>
+                    <div class="letter-signature">
+                        <span>With all my love & hugs,</span>
+                        <span class="sig-heart">❤️🫀🌻🫂</span>
+                    </div>
+                </div>
+
+                <div class="surprise-teaser">
+                    <p class="teaser-text">Ready for your biggest surprise? 🎁</p>
+                </div>
+
+                <div class="action-footer">
+                    <button id="btn-page-5-next" class="btn-primary-romantic btn-pulse">
+                        <span class="btn-text">Open Your Surprise ❤️</span>
+                        <span class="btn-shine"></span>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= PAGE 6: The Grand Birthday Surprise 🎁❤️ ================= -->
+        <section id="page-6" class="screen-page">
+            <!-- Fullscreen Animated Floating Emojis Canvas / DOM Container -->
+            <div id="floating-emojis-layer" class="floating-emojis-layer"></div>
+
+            <div class="card-glass page-card surprise-page-card">
+                
+                <!-- Surprise Header -->
+                <div id="surprise-pre-reveal" class="surprise-section">
+                    <div class="badge-tag glow-badge">The Final Surprise 🎁</div>
+                    <h2 class="surprise-title">Someone has a surprise just for you... 🎁</h2>
+                    <p id="gift-instruction" class="gift-instruction-text">Tap the gift box 3 times to open your surprise ❤️</p>
+                    
+                    <!-- Click Progress Indicator Dots -->
+                    <div class="gift-clicks-tracker">
+                        <span class="click-dot" id="click-dot-1"></span>
+                        <span class="click-dot" id="click-dot-2"></span>
+                        <span class="click-dot" id="click-dot-3"></span>
+                    </div>
+
+                    <!-- Interactive 3D Gift Box -->
+                    <div class="gift-box-wrapper" id="gift-box-trigger">
+                        <div class="gift-box-glow"></div>
+                        <div class="gift-box" id="gift-box-element">
+                            <div class="gift-lid">
+                                <div class="lid-ribbon"></div>
+                                <div class="gift-bow">
+                                    <div class="bow-left"></div>
+                                    <div class="bow-right"></div>
+                                    <div class="bow-center"></div>
+                                </div>
+                            </div>
+                            <div class="gift-body">
+                                <div class="body-ribbon-v"></div>
+                                <div class="body-ribbon-h"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="gift-status-toast" class="status-toast hidden">
+                        <span id="toast-text">Something special is waiting... 💗</span>
+                    </div>
+                </div>
+
+                <!-- Grand Reveal Area (Hidden until 3rd click) -->
+                <div id="surprise-post-reveal" class="surprise-section post-reveal-section hidden">
+                    <div class="burst-sparkles-header">✨🎉🎂🎉✨</div>
+                    
+                    <!-- Final Birthday Message EXACT text: "Happy Birthday Princy🫀❤️🫂" -->
+                    <h1 class="grand-final-heading" id="final-birthday-message">
+                        Happy Birthday Princy<span class="final-emojis">🫀❤️🫂</span>
+                    </h1>
+
+                    <p class="final-wishes-sub">May your life always be filled with endless smiles, warmth, and magic! 🌻✨</p>
+
+                    <!-- Confetti Canvas for Explosion Effect -->
+                    <canvas id="confetti-canvas"></canvas>
+
+                    <div class="reveal-actions">
+                        <button id="btn-replay-surprise" class="btn-secondary-romantic">
+                            <span>Replay Surprise 🎁</span>
+                        </button>
+                        <button id="btn-restart-experience" class="btn-secondary-romantic">
+                            <span>Revisit Memories 🔄</span>
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer Credit -->
+    <footer class="app-footer">
+        <p>Made with all the ❤️ in the world for <strong>Princy</strong></p>
+    </footer>
+
+    <!-- JavaScript Script -->
+    <script src="js/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,1488 @@
+/* ==========================================================================
+   PRINCITY BIRTHDAY SURPRISE - STYLESHEET
+   Theme: Light Pink, Cream, Romantic Glassmorphism & Pastel Red
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. CSS Custom Properties / Design Tokens
+   -------------------------------------------------------------------------- */
+:root {
+    /* Color Palette */
+    --bg-light-pink: #fff0f4;
+    --bg-pink-gradient-1: #ffe4ec;
+    --bg-pink-gradient-2: #ffd6e4;
+    --bg-pink-gradient-3: #fff5f8;
+    
+    --primary-pink: #ff6584;
+    --primary-pink-hover: #ff476d;
+    --primary-pink-light: #ffebf0;
+    --romantic-red: #e63956;
+    --soft-rose: #f472b6;
+    --pastel-lavender: #f3e8ff;
+    --cream-white: #fffdfa;
+    --pure-white: #ffffff;
+    
+    /* Text Colors */
+    --text-dark: #3a2232;
+    --text-muted: #7c586e;
+    --text-light: #a37b95;
+    
+    /* Placeholders Dark / Black Space */
+    --black-space-bg: #121016;
+    --black-space-border: #ff85a1;
+    --black-space-text: #ffd3e0;
+    
+    /* Glassmorphism & Shadows */
+    --glass-bg: rgba(255, 255, 255, 0.78);
+    --glass-border: rgba(255, 182, 193, 0.45);
+    --glass-shadow: 0 16px 40px -10px rgba(255, 101, 132, 0.2), 0 8px 16px -6px rgba(0, 0, 0, 0.04);
+    --card-radius: 28px;
+    --inner-radius: 20px;
+    
+    /* Typography */
+    --font-sans: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-script: 'Dancing Script', cursive;
+    --font-handwriting: 'Caveat', cursive;
+    --font-romantic: 'Sacramento', cursive;
+    
+    /* Transitions */
+    --transition-fast: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-smooth: 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+    --transition-bounce: 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* --------------------------------------------------------------------------
+   2. Global Reset & Body Setup
+   -------------------------------------------------------------------------- */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html, body {
+    width: 100%;
+    min-height: 100vh;
+    font-family: var(--font-sans);
+    background-color: var(--bg-light-pink);
+    color: var(--text-dark);
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    background: linear-gradient(135deg, var(--bg-pink-gradient-1) 0%, var(--bg-light-pink) 50%, var(--bg-pink-gradient-2) 100%);
+    background-attachment: fixed;
+}
+
+/* --------------------------------------------------------------------------
+   3. Ambient Floating Background Effects
+   -------------------------------------------------------------------------- */
+.ambient-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+}
+
+.glow-orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: 0.55;
+    animation: floatGlow 12s infinite alternate ease-in-out;
+}
+
+.orb-1 {
+    width: 320px;
+    height: 320px;
+    background: rgba(255, 101, 132, 0.35);
+    top: -60px;
+    left: -60px;
+}
+
+.orb-2 {
+    width: 400px;
+    height: 400px;
+    background: rgba(244, 114, 182, 0.3);
+    bottom: -100px;
+    right: -80px;
+    animation-delay: -4s;
+}
+
+.orb-3 {
+    width: 250px;
+    height: 250px;
+    background: rgba(243, 232, 255, 0.6);
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    animation-delay: -8s;
+}
+
+@keyframes floatGlow {
+    0% { transform: translate(0, 0) scale(1); }
+    100% { transform: translate(40px, 50px) scale(1.15); }
+}
+
+.ambient-hearts {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+/* --------------------------------------------------------------------------
+   4. Header & Screen Navigation Progress Indicator
+   -------------------------------------------------------------------------- */
+.app-header {
+    position: relative;
+    z-index: 10;
+    width: 100%;
+    max-width: 540px;
+    padding: 16px 20px 8px 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.progress-bar-container {
+    background: rgba(255, 255, 255, 0.65);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    padding: 8px 18px;
+    border-radius: 40px;
+    border: 1px solid var(--glass-border);
+    box-shadow: 0 4px 15px rgba(255, 101, 132, 0.08);
+}
+
+.progress-dots {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: #ffd0dc;
+    transition: all var(--transition-bounce);
+    cursor: default;
+}
+
+.dot.active {
+    width: 26px;
+    border-radius: 12px;
+    background: linear-gradient(90deg, var(--primary-pink), var(--romantic-red));
+    box-shadow: 0 2px 8px rgba(230, 57, 86, 0.4);
+}
+
+.dot.completed {
+    background-color: var(--primary-pink);
+}
+
+/* --------------------------------------------------------------------------
+   5. Persistent Floating Music Player Widget
+   -------------------------------------------------------------------------- */
+.music-widget {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 100;
+    background: rgba(255, 255, 255, 0.88);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1.5px solid var(--primary-pink-light);
+    border-radius: 50px;
+    padding: 6px 14px 6px 8px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    box-shadow: 0 10px 25px rgba(255, 101, 132, 0.25);
+    transition: all var(--transition-smooth);
+    animation: slideUpIn 0.5s ease-out;
+}
+
+.music-widget.hidden {
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(30px) scale(0.9);
+}
+
+.disc-wrapper {
+    position: relative;
+    width: 36px;
+    height: 36px;
+}
+
+.vinyl-disc {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: radial-gradient(circle, #333 30%, #111 70%);
+    border: 2px solid var(--primary-pink);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+}
+
+.vinyl-disc.spinning {
+    animation: spinDisc 3s linear infinite;
+}
+
+@keyframes spinDisc {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.disc-center {
+    font-size: 14px;
+}
+
+.music-info {
+    display: flex;
+    flex-direction: column;
+    max-width: 120px;
+    overflow: hidden;
+}
+
+.now-playing-label {
+    font-size: 9px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--primary-pink);
+}
+
+.song-title-display {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text-dark);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.music-controls-btns {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.widget-btn {
+    background: none;
+    border: none;
+    font-size: 14px;
+    cursor: pointer;
+    padding: 4px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform var(--transition-fast);
+}
+
+.widget-btn:hover {
+    transform: scale(1.15);
+}
+
+/* --------------------------------------------------------------------------
+   6. Main Container & Glassmorphism Page Cards
+   -------------------------------------------------------------------------- */
+.main-container {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 580px;
+    padding: 10px 16px 40px 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.screen-page {
+    width: 100%;
+    display: none;
+    opacity: 0;
+    transform: translateY(18px) scale(0.98);
+    transition: opacity var(--transition-smooth), transform var(--transition-smooth);
+}
+
+.screen-page.active-page {
+    display: block;
+    opacity: 1;
+    transform: translateY(0) scale(1);
+}
+
+.card-glass {
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1.5px solid var(--glass-border);
+    border-radius: var(--card-radius);
+    box-shadow: var(--glass-shadow);
+    padding: 28px 24px;
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+}
+
+/* Back Button */
+.nav-back-btn {
+    position: absolute;
+    top: 18px;
+    left: 18px;
+    background: rgba(255, 255, 255, 0.7);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    padding: 6px 14px;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+.nav-back-btn:hover {
+    background: var(--pure-white);
+    color: var(--primary-pink);
+    transform: translateX(-3px);
+}
+
+/* Badges & Typography */
+.badge-tag {
+    display: inline-block;
+    padding: 6px 16px;
+    background: linear-gradient(135deg, #ffe4eb, #ffd1df);
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--romantic-red);
+    margin-bottom: 14px;
+    box-shadow: 0 2px 10px rgba(255, 101, 132, 0.12);
+}
+
+.recipient-name {
+    font-size: 2.8rem;
+    font-family: var(--font-script);
+    color: var(--romantic-red);
+    margin: 10px 0 6px 0;
+    text-shadow: 0 2px 10px rgba(230, 57, 86, 0.15);
+}
+
+.heart-pulse {
+    display: inline-block;
+    animation: heartPulse 1.4s infinite ease-in-out;
+}
+
+@keyframes heartPulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.25); }
+}
+
+.welcome-heading, .page-title {
+    font-size: 1.45rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    line-height: 1.35;
+    margin-bottom: 8px;
+}
+
+.welcome-subtitle, .page-subtitle {
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    line-height: 1.5;
+    margin-bottom: 24px;
+}
+
+/* Romantic Primary Button */
+.action-footer {
+    margin-top: 28px;
+    display: flex;
+    justify-content: center;
+}
+
+.btn-primary-romantic {
+    position: relative;
+    background: linear-gradient(135deg, var(--primary-pink) 0%, var(--romantic-red) 100%);
+    color: var(--pure-white);
+    border: none;
+    padding: 14px 32px;
+    font-size: 1.05rem;
+    font-weight: 600;
+    border-radius: 50px;
+    cursor: pointer;
+    box-shadow: 0 8px 22px rgba(230, 57, 86, 0.35);
+    overflow: hidden;
+    transition: all var(--transition-bounce);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    max-width: 320px;
+}
+
+.btn-primary-romantic:hover:not(:disabled) {
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 12px 28px rgba(230, 57, 86, 0.45);
+}
+
+.btn-primary-romantic:active:not(:disabled) {
+    transform: translateY(1px) scale(0.98);
+}
+
+.btn-primary-romantic.disabled, .btn-primary-romantic:disabled {
+    background: #e2d2da;
+    box-shadow: none;
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+.btn-pulse {
+    animation: btnPulse 2s infinite ease-in-out;
+}
+
+@keyframes btnPulse {
+    0%, 100% { box-shadow: 0 8px 22px rgba(230, 57, 86, 0.35); }
+    50% { box-shadow: 0 12px 30px rgba(230, 57, 86, 0.6); }
+}
+
+.btn-shine {
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(60deg, transparent 30%, rgba(255,255,255,0.35) 50%, transparent 70%);
+    transform: rotate(30deg);
+    animation: shineEffect 4s infinite;
+}
+
+@keyframes shineEffect {
+    0% { transform: translateX(-100%) rotate(30deg); }
+    20%, 100% { transform: translateX(100%) rotate(30deg); }
+}
+
+/* Secondary Button */
+.btn-secondary-romantic {
+    background: rgba(255, 255, 255, 0.9);
+    color: var(--romantic-red);
+    border: 1.5px solid var(--primary-pink);
+    padding: 10px 20px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    border-radius: 40px;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+.btn-secondary-romantic:hover {
+    background: var(--primary-pink-light);
+    transform: translateY(-2px);
+}
+
+/* --------------------------------------------------------------------------
+   7. PAGE 1: Welcome Screen Photo Frame & Date Pill
+   -------------------------------------------------------------------------- */
+.main-cover-frame {
+    margin: 10px auto 20px auto;
+    width: 210px;
+    height: 210px;
+}
+
+.photo-frame-glow {
+    position: relative;
+    border-radius: 50%;
+    padding: 6px;
+    background: linear-gradient(135deg, #ffa8bc, #ff5e80, #ffd4df);
+    box-shadow: 0 12px 30px rgba(255, 101, 132, 0.35);
+}
+
+.photo-placeholder-box {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    overflow: hidden;
+    position: relative;
+    background: var(--black-space-bg);
+}
+
+.user-photo-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+    display: block;
+}
+
+.user-photo-img.hidden {
+    display: none;
+}
+
+/* Black space placeholder for missing user photos */
+.black-space-placeholder {
+    width: 100%;
+    height: 100%;
+    background-color: var(--black-space-bg);
+    border: 2px dashed var(--black-space-border);
+    border-radius: inherit;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+    color: var(--black-space-text);
+    text-align: center;
+}
+
+.black-space-placeholder.hidden {
+    display: none;
+}
+
+.placeholder-icon {
+    font-size: 2.2rem;
+    margin-bottom: 6px;
+    animation: floatSmall 3s ease-in-out infinite;
+}
+
+@keyframes floatSmall {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
+}
+
+.placeholder-text {
+    font-size: 0.82rem;
+    font-weight: 600;
+    line-height: 1.25;
+}
+
+.placeholder-subtext {
+    font-size: 0.68rem;
+    color: rgba(255, 255, 255, 0.6);
+    margin-top: 4px;
+    font-family: monospace;
+}
+
+.frame-decor {
+    position: absolute;
+    font-size: 1.5rem;
+    animation: floatDecor 3s infinite ease-in-out alternate;
+}
+
+.decor-top-right {
+    top: -4px;
+    right: 4px;
+}
+
+.decor-bottom-left {
+    bottom: -4px;
+    left: 4px;
+    animation-delay: -1.5s;
+}
+
+@keyframes floatDecor {
+    from { transform: scale(0.9) rotate(-10deg); }
+    to { transform: scale(1.2) rotate(10deg); }
+}
+
+.birthday-date-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: linear-gradient(135deg, #ffffff 0%, #fff0f4 100%);
+    border: 2px solid var(--primary-pink);
+    border-radius: 40px;
+    padding: 10px 24px;
+    font-size: 1.4rem;
+    font-weight: 800;
+    letter-spacing: 1px;
+    color: var(--romantic-red);
+    margin-bottom: 22px;
+    box-shadow: 0 6px 20px rgba(255, 101, 132, 0.25);
+    transition: transform var(--transition-bounce);
+}
+
+.birthday-date-pill:hover {
+    transform: scale(1.05);
+}
+
+.date-icon {
+    font-size: 1.3rem;
+}
+
+/* --------------------------------------------------------------------------
+   8. PAGE 2: Music Selection Cards
+   -------------------------------------------------------------------------- */
+.songs-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    margin: 20px 0;
+}
+
+.song-card {
+    background: var(--pure-white);
+    border: 2px solid rgba(255, 182, 193, 0.35);
+    border-radius: var(--inner-radius);
+    padding: 14px 18px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+}
+
+.song-card:hover {
+    border-color: var(--primary-pink);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(255, 101, 132, 0.15);
+}
+
+.song-card.selected {
+    border-color: var(--romantic-red);
+    background: linear-gradient(135deg, #fff0f4 0%, #ffe4eb 100%);
+    box-shadow: 0 8px 24px rgba(230, 57, 86, 0.22);
+}
+
+.song-icon-badge {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: var(--primary-pink-light);
+    color: var(--primary-pink);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.3rem;
+    flex-shrink: 0;
+    transition: all var(--transition-fast);
+}
+
+.song-card.selected .song-icon-badge {
+    background: var(--romantic-red);
+    color: var(--pure-white);
+    animation: pulseIcon 1.5s infinite;
+}
+
+@keyframes pulseIcon {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+}
+
+.song-details {
+    text-align: left;
+    flex-grow: 1;
+}
+
+.song-title {
+    font-size: 0.98rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin-bottom: 2px;
+}
+
+.song-artist {
+    font-size: 0.82rem;
+    color: var(--text-muted);
+}
+
+.song-select-btn {
+    background: rgba(255, 101, 132, 0.1);
+    color: var(--primary-pink);
+    border: none;
+    border-radius: 20px;
+    padding: 6px 14px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+.song-card.selected .song-select-btn {
+    background: var(--romantic-red);
+    color: var(--pure-white);
+}
+
+.audio-notice {
+    font-size: 0.82rem;
+    color: #c92a2a;
+    background: #ffe3e3;
+    padding: 8px 14px;
+    border-radius: 12px;
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    justify-content: center;
+}
+
+.audio-notice.hidden {
+    display: none;
+}
+
+/* --------------------------------------------------------------------------
+   9. PAGE 3: 3D Memory Cards Grid & Flip Effect
+   -------------------------------------------------------------------------- */
+.memory-cards-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+    margin: 20px 0;
+    perspective: 1000px;
+}
+
+@media (max-width: 400px) {
+    .memory-cards-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.memory-card {
+    height: 175px;
+    perspective: 1000px;
+    cursor: pointer;
+    outline: none;
+}
+
+.card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: var(--inner-radius);
+    transition: transform 0.7s cubic-bezier(0.4, 0.2, 0.2, 1);
+    transform-style: preserve-3d;
+}
+
+.memory-card:hover .card-inner,
+.memory-card.flipped .card-inner {
+    transform: rotateY(180deg);
+}
+
+.card-front, .card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: var(--inner-radius);
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+    border: 1.5px solid var(--glass-border);
+}
+
+.card-front {
+    background: linear-gradient(145deg, #ffffff 0%, #fff0f4 100%);
+    box-shadow: 0 8px 20px rgba(255, 101, 132, 0.12);
+}
+
+.card-front-icon {
+    font-size: 2.2rem;
+    margin-bottom: 8px;
+}
+
+.memory-tag {
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--primary-pink);
+    margin-bottom: 4px;
+}
+
+.reveal-hint {
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--text-muted);
+}
+
+.corner-heart {
+    position: absolute;
+    top: 10px;
+    right: 12px;
+    font-size: 0.9rem;
+    opacity: 0.6;
+}
+
+.card-back {
+    background: linear-gradient(145deg, var(--romantic-red) 0%, var(--primary-pink) 100%);
+    color: var(--pure-white);
+    transform: rotateY(180deg);
+    box-shadow: 0 10px 25px rgba(230, 57, 86, 0.3);
+}
+
+.back-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    height: 100%;
+    position: relative;
+}
+
+.quote-mark {
+    font-family: var(--font-script);
+    font-size: 2.2rem;
+    line-height: 0;
+    opacity: 0.4;
+    margin-bottom: 6px;
+}
+
+.memory-text {
+    font-size: 0.85rem;
+    font-weight: 500;
+    line-height: 1.4;
+    overflow-y: auto;
+    max-height: 100px;
+}
+
+.back-heart {
+    margin-top: 8px;
+    font-size: 0.9rem;
+}
+
+/* --------------------------------------------------------------------------
+   10. PAGE 4: Photobooth Polaroid Carousel
+   -------------------------------------------------------------------------- */
+.photobooth-container {
+    margin: 16px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.polaroid-frame {
+    position: relative;
+    background: #ffffff;
+    padding: 14px 14px 22px 14px;
+    border-radius: 6px;
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.12), 0 2px 6px rgba(0, 0, 0, 0.06);
+    transform: rotate(-1.5deg);
+    transition: transform var(--transition-smooth);
+    width: 100%;
+    max-width: 330px;
+}
+
+.polaroid-frame:hover {
+    transform: rotate(0deg) scale(1.02);
+}
+
+.tape-sticker {
+    position: absolute;
+    width: 60px;
+    height: 22px;
+    background: rgba(255, 255, 255, 0.65);
+    border: 1px dashed rgba(255, 101, 132, 0.3);
+    backdrop-filter: blur(4px);
+    z-index: 5;
+}
+
+.tape-sticker.top-left {
+    top: -10px;
+    left: -10px;
+    transform: rotate(-25deg);
+}
+
+.tape-sticker.top-right {
+    top: -10px;
+    right: -10px;
+    transform: rotate(20deg);
+}
+
+.polaroid-img-wrapper {
+    width: 100%;
+    height: 270px;
+    border-radius: 4px;
+    overflow: hidden;
+    background-color: var(--black-space-bg);
+}
+
+.polaroid-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: opacity var(--transition-fast);
+}
+
+.polaroid-img.hidden {
+    display: none;
+}
+
+.photobooth-black-space {
+    border-radius: 4px;
+}
+
+.polaroid-caption-area {
+    margin-top: 14px;
+    min-height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.handwritten-caption {
+    font-family: var(--font-handwriting);
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #2b1b26;
+    line-height: 1.2;
+}
+
+.carousel-controls-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 330px;
+    margin-top: 18px;
+}
+
+.carousel-btn {
+    background: var(--pure-white);
+    border: 1px solid var(--glass-border);
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    color: var(--primary-pink);
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(255, 101, 132, 0.15);
+    transition: all var(--transition-fast);
+}
+
+.carousel-btn:hover {
+    background: var(--primary-pink);
+    color: var(--pure-white);
+    transform: scale(1.1);
+}
+
+.carousel-meta {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+}
+
+.carousel-counter {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--text-muted);
+}
+
+.slideshow-toggle-btn {
+    background: none;
+    border: none;
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: var(--primary-pink);
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.carousel-dots {
+    display: flex;
+    gap: 6px;
+    margin-top: 12px;
+}
+
+.c-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #ffd0dc;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+.c-dot.active {
+    background: var(--primary-pink);
+    transform: scale(1.3);
+}
+
+/* --------------------------------------------------------------------------
+   11. PAGE 5: Heartfelt Birthday Love Letter
+   -------------------------------------------------------------------------- */
+.letter-card-page {
+    padding: 24px 18px;
+}
+
+.love-letter-paper {
+    background: linear-gradient(180deg, #fffdf8 0%, #fff7f2 100%);
+    border: 1px solid #f3dbcf;
+    border-radius: 18px;
+    padding: 26px 20px;
+    box-shadow: inset 0 0 30px rgba(255, 235, 220, 0.5), 0 8px 25px rgba(0, 0, 0, 0.04);
+    position: relative;
+    text-align: left;
+    margin: 16px 0;
+}
+
+.letter-stamp {
+    position: absolute;
+    top: 16px;
+    right: 18px;
+    font-size: 1.4rem;
+    background: #ffe8e0;
+    border: 1px dashed #f49b88;
+    padding: 4px 8px;
+    border-radius: 6px;
+    transform: rotate(6deg);
+}
+
+.letter-body-scroll {
+    max-height: 380px;
+    overflow-y: auto;
+    padding-right: 8px;
+    font-size: 0.96rem;
+    line-height: 1.7;
+    color: #4a323f;
+    font-family: var(--font-sans);
+}
+
+.letter-body-scroll::-webkit-scrollbar {
+    width: 5px;
+}
+
+.letter-body-scroll::-webkit-scrollbar-thumb {
+    background: #f472b6;
+    border-radius: 10px;
+}
+
+.letter-paragraph {
+    margin-bottom: 14px;
+}
+
+.letter-signature {
+    margin-top: 20px;
+    padding-top: 14px;
+    border-top: 1px dashed #f0c5b5;
+    font-family: var(--font-script);
+    font-size: 1.4rem;
+    color: var(--romantic-red);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.sig-heart {
+    font-size: 1.2rem;
+}
+
+.surprise-teaser {
+    margin-top: 10px;
+}
+
+.teaser-text {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--romantic-red);
+    animation: bounceText 2s infinite;
+}
+
+@keyframes bounceText {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-4px); }
+}
+
+/* --------------------------------------------------------------------------
+   12. PAGE 6: Grand Birthday Surprise & 3D Gift Box
+   -------------------------------------------------------------------------- */
+.surprise-page-card {
+    position: relative;
+    overflow: hidden;
+    min-height: 480px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.floating-emojis-layer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+    overflow: hidden;
+}
+
+.floating-emoji-item {
+    position: absolute;
+    pointer-events: none;
+    user-select: none;
+    animation: floatEmojiUp 8s linear infinite;
+    opacity: 0.7;
+}
+
+@keyframes floatEmojiUp {
+    0% {
+        transform: translateY(100vh) rotate(0deg);
+        opacity: 0;
+    }
+    10% {
+        opacity: 0.8;
+    }
+    90% {
+        opacity: 0.8;
+    }
+    100% {
+        transform: translateY(-20vh) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+.surprise-section {
+    position: relative;
+    z-index: 5;
+}
+
+.gift-instruction-text {
+    font-size: 0.98rem;
+    font-weight: 600;
+    color: var(--primary-pink);
+    margin-bottom: 12px;
+}
+
+.gift-clicks-tracker {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 20px;
+}
+
+.click-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #ffd0dc;
+    transition: all var(--transition-bounce);
+}
+
+.click-dot.filled {
+    background: var(--romantic-red);
+    box-shadow: 0 0 10px rgba(230, 57, 86, 0.6);
+    transform: scale(1.2);
+}
+
+/* 3D Interactive Gift Box */
+.gift-box-wrapper {
+    position: relative;
+    width: 140px;
+    height: 140px;
+    margin: 20px auto;
+    cursor: pointer;
+}
+
+.gift-box-glow {
+    position: absolute;
+    top: -20px;
+    left: -20px;
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255, 101, 132, 0.4) 0%, transparent 70%);
+    animation: pulseGlow 2s infinite ease-in-out;
+}
+
+@keyframes pulseGlow {
+    0%, 100% { transform: scale(0.9); opacity: 0.6; }
+    50% { transform: scale(1.2); opacity: 1; }
+}
+
+.gift-box {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+    transition: transform var(--transition-bounce);
+    animation: floatGift 3s infinite ease-in-out;
+}
+
+@keyframes floatGift {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-10px) rotate(2deg); }
+}
+
+/* Click Animation States */
+.gift-box.bounce-1 {
+    animation: giftBounce 0.5s ease-out;
+}
+
+@keyframes giftBounce {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.18) translateY(-15px); }
+}
+
+.gift-box.shake-2 {
+    animation: giftShake 0.6s ease-in-out;
+}
+
+@keyframes giftShake {
+    0%, 100% { transform: rotate(0deg); }
+    20% { transform: rotate(-12deg) scale(1.08); }
+    40% { transform: rotate(12deg) scale(1.12); }
+    60% { transform: rotate(-8deg) scale(1.15); }
+    80% { transform: rotate(8deg) scale(1.15); }
+}
+
+.gift-box.burst-open {
+    animation: giftBurst 0.8s ease-out forwards;
+}
+
+@keyframes giftBurst {
+    0% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.4) rotate(15deg); opacity: 0.9; }
+    100% { transform: scale(2) rotate(-30deg); opacity: 0; }
+}
+
+/* Gift Box Visual Design */
+.gift-lid {
+    position: absolute;
+    top: 0;
+    left: -5px;
+    width: 150px;
+    height: 40px;
+    background: linear-gradient(135deg, #ff476d, #e63956);
+    border-radius: 8px 8px 4px 4px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+    z-index: 2;
+    transition: transform 0.6s ease-out;
+}
+
+.lid-ribbon {
+    position: absolute;
+    left: 65px;
+    top: 0;
+    width: 20px;
+    height: 100%;
+    background: #fff0f4;
+}
+
+.gift-bow {
+    position: absolute;
+    top: -24px;
+    left: 55px;
+    width: 40px;
+    height: 24px;
+}
+
+.bow-left, .bow-right {
+    position: absolute;
+    width: 24px;
+    height: 20px;
+    border: 4px solid #fff0f4;
+    border-radius: 50% 50% 0 50%;
+    top: 0;
+}
+
+.bow-left {
+    left: -8px;
+    transform: rotate(-25deg);
+}
+
+.bow-right {
+    right: -8px;
+    transform: rotate(25deg) scaleX(-1);
+}
+
+.bow-center {
+    position: absolute;
+    top: 8px;
+    left: 14px;
+    width: 12px;
+    height: 12px;
+    background: #ffffff;
+    border-radius: 50%;
+}
+
+.gift-body {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 140px;
+    height: 110px;
+    background: linear-gradient(135deg, #ff6584, #f472b6);
+    border-radius: 0 0 10px 10px;
+    box-shadow: 0 12px 25px rgba(230, 57, 86, 0.25);
+}
+
+.body-ribbon-v {
+    position: absolute;
+    left: 60px;
+    top: 0;
+    width: 20px;
+    height: 100%;
+    background: #fff0f4;
+}
+
+.body-ribbon-h {
+    position: absolute;
+    top: 45px;
+    left: 0;
+    width: 100%;
+    height: 20px;
+    background: #fff0f4;
+}
+
+.status-toast {
+    margin-top: 14px;
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: var(--romantic-red);
+    background: rgba(255, 255, 255, 0.9);
+    padding: 8px 18px;
+    border-radius: 20px;
+    display: inline-block;
+    box-shadow: 0 4px 12px rgba(230, 57, 86, 0.15);
+    animation: fadeInToast 0.4s ease;
+}
+
+.status-toast.hidden {
+    display: none;
+}
+
+@keyframes fadeInToast {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Grand Reveal Post-Click 3 */
+.post-reveal-section {
+    animation: revealAppear 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes revealAppear {
+    from { opacity: 0; transform: scale(0.85); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+.post-reveal-section.hidden {
+    display: none;
+}
+
+.burst-sparkles-header {
+    font-size: 1.8rem;
+    margin-bottom: 10px;
+    animation: bounceText 1.5s infinite;
+}
+
+/* EXACT required heading format */
+.grand-final-heading {
+    font-size: 2.5rem;
+    font-family: var(--font-script);
+    color: var(--romantic-red);
+    line-height: 1.25;
+    margin-bottom: 12px;
+    text-shadow: 0 4px 15px rgba(230, 57, 86, 0.25);
+    animation: glowText 2s infinite alternate ease-in-out;
+}
+
+@keyframes glowText {
+    from { text-shadow: 0 2px 10px rgba(230, 57, 86, 0.2); }
+    to { text-shadow: 0 6px 25px rgba(230, 57, 86, 0.6); }
+}
+
+.final-emojis {
+    display: inline-block;
+    margin-left: 6px;
+}
+
+.final-wishes-sub {
+    font-size: 1rem;
+    color: var(--text-muted);
+    margin-bottom: 24px;
+}
+
+#confetti-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    z-index: 99;
+}
+
+.reveal-actions {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 20px;
+}
+
+/* --------------------------------------------------------------------------
+   13. Footer
+   -------------------------------------------------------------------------- */
+.app-footer {
+    position: relative;
+    z-index: 10;
+    padding: 14px 20px;
+    font-size: 0.8rem;
+    color: var(--text-light);
+    text-align: center;
+}
+
+/* --------------------------------------------------------------------------
+   14. Responsive Layout Adjustments
+   -------------------------------------------------------------------------- */
+@media (min-width: 600px) {
+    .card-glass {
+        padding: 36px 32px;
+    }
+    .recipient-name {
+        font-size: 3.2rem;
+    }
+    .grand-final-heading {
+        font-size: 3rem;
+    }
+    .main-cover-frame {
+        width: 230px;
+        height: 230px;
+    }
+}
+
+@media (max-width: 480px) {
+    .main-container {
+        padding: 6px 12px 30px 12px;
+    }
+    .card-glass {
+        padding: 24px 16px;
+        border-radius: 22px;
+    }
+    .welcome-heading, .page-title {
+        font-size: 1.28rem;
+    }
+    .music-widget {
+        bottom: 12px;
+        right: 12px;
+        padding: 4px 10px 4px 6px;
+    }
+    .song-title-display {
+        max-width: 90px;
+    }
+}
